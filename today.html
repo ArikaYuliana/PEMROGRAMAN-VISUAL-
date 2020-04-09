@@ -1,11 +1,8 @@
 <html>
 
-<head>
-</head>
-
 <body>
     <h1>Today Window</h1>
-    <div id="list"></div>
+    <div id="today"></div>
 </body>
 
 <script>
@@ -15,7 +12,7 @@
     } = electron;
     ipcRenderer.send("appointment:request:today");
 
-    ipcRenderer.on("appointment:request:today", (event, appointment) => {
+    ipcRenderer.on("appointment:request:today", (event, appointments) => {
         const listDiv = document.getElementById("list");
         appointments.forEach(appointment => {
             const appointmentDiv = document.createElement("div");
@@ -60,4 +57,5 @@
         ipcRenderer.send("appointment:done", id);
     };
 </script>
-</html> 
+
+</html>
