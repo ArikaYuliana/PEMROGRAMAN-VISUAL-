@@ -39,6 +39,11 @@ ipcRenderer.on("appointment:response:today", (event, appointments) => {
         const doneParagraph = document.createElement("p");
         doneParagraph.innerHTML = `Done: ${appointment.done ? "Yes" : "No"}`;
 
+        const doneButton = document.createElement("button");
+        doneButton.innerHTML = "Done";
+        doneButton.disabled = appointment.done ? true : false;
+        doneButton.onclick = () => done(appointment.id);
+
         const hr = document.createElement("hr");
 
         appointmentDiv.appendChild(nameParagraph);
@@ -47,6 +52,7 @@ ipcRenderer.on("appointment:response:today", (event, appointments) => {
         appointmentDiv.appendChild(hourParagraph);
         appointmentDiv.appendChild(symptomsParagraph);
         appointmentDiv.appendChild(doneParagraph);
+        appointmentDiv.appendChild(doneButton);
         appointmentDiv.appendChild(hr);
 
         listDiv.append(appointmentDiv);
