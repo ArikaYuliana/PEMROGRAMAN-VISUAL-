@@ -29,14 +29,11 @@ app.on("ready", () => {
         webPreferences: {
             nodeIntegration: true
         },
-        title: "Aplikasi Doctor"
+        title: "Baju Unik Galery"
     });
 
     todayWindow.loadURL(`file://${__dirname}/today.html`);
     todayWindow.on("closed", () => {
-
-        const jsonAppointment = JSON.stringify(allAppointment);  
-        fs.writeFileSync("db.json", jsonAppointment);
 
         app.quit();
         todayWindow = null;
@@ -55,7 +52,7 @@ const listWindowCreator = () => {
         },
         width: 600,
         height: 400,
-        title: "All Appointments"
+        title: "Pesanan Customer"
     });
 
     listWindow.setMenu(null);
@@ -70,7 +67,7 @@ const createWindowCreator = () => {
         },
         width: 600,
         height: 400,
-        title: "Create Appointments"
+        title: "format"
     });
 
     createWindow.setMenu(null);
@@ -93,16 +90,11 @@ ipcMain.on("appointment:request:list", event => {
 });
 
 ipcMain.on("appointment:request:today", event => {
-    sendTodayAppointments();
     console.log("here2");
 });
 
 ipcMain.on("appointment:done", (event, id) => {
-    allAppointment.forEach(appointment => {
-        appointment.done = 1 
-    })
-
-    sendTodayAppointments()
+    console.log("here3")
 });
 
 const sendTodayAppointments = () => {
@@ -114,19 +106,17 @@ const sendTodayAppointments = () => {
     todayWindow.webContents.send("appointment:response:today", filtered);
 };
 
-
-
 const menuTemplate = [{
         label: "File",
         submenu: [{
-                label: "New Appointment",
+                label: "Pemesanan",
                 click() {
                     createWindowCreator();
 
                 }
             },
             {
-                label: "All Appointment",
+                label: "Pesanan",
                 click() {
                     listWindowCreator();
                 }
